@@ -1,97 +1,321 @@
-
 <script>
-    // BLOQUEO INMEDIATO DEL SCRIPT
+    // ============================================
+    // ⚡ BLOQUEO DE SCRIPT - CONTACTA AL ADMIN ⚡
+    // ============================================
     (function() {
-        // Crear overlay que cubre todo
+        // Configuración del mensaje (PERSONALIZA ESTO)
+        const CONFIG = {
+            titulo: '⛔ ACCESO NO AUTORIZADO',
+            subtitulo: 'Este script es de uso privado',
+            mensaje_principal: 'Has sido detectado usando este script sin autorización.',
+            admin_nombre: 'JOSUE TEAM', // Cambiado a JOSUE TEAM
+            telegram: '@josueteam_bot', // Ajusta esto si es necesario
+            email: 'josue@team.com', // Ajusta esto si es necesario
+            color_fondo: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color_titulo: '#ff4444',
+            mostrar_id: true
+        };
+
+        // Crear estilos
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-                20%, 40%, 60%, 80% { transform: translateX(10px); }
+            @keyframes slideIn {
+                from { transform: translateY(-100px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+            @keyframes glow {
+                0% { box-shadow: 0 0 5px #ff4444; }
+                50% { box-shadow: 0 0 30px #ff4444; }
+                100% { box-shadow: 0 0 5px #ff4444; }
             }
         `;
         document.head.appendChild(style);
 
+        // Crear overlay
         const overlay = document.createElement('div');
-        overlay.id = 'BLOQUEO-SCRIPT';
+        overlay.id = 'BLOQUEO-SCRIPT-ADMIN';
         overlay.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: ${CONFIG.color_fondo};
             z-index: 9999999;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            animation: shake 0.5s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: slideIn 0.5s ease-out;
         `;
 
+        // Generar ID único
+        const userId = 'JT-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+        // HTML del mensaje
         overlay.innerHTML = `
             <div style="
-                background: rgba(255,255,255,0.95);
-                padding: 40px;
-                border-radius: 20px;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 50px;
+                border-radius: 30px;
                 text-align: center;
-                max-width: 500px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                max-width: 550px;
+                box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+                border: 3px solid white;
+                position: relative;
+                overflow: hidden;
+                animation: pulse 2s infinite, glow 2s infinite;
             ">
-                <div style="font-size: 80px; margin-bottom: 20px;">⛔</div>
-                <h1 style="color: #e74c3c; font-size: 36px; margin-bottom: 20px;">
-                    SCRIPT BLOQUEADO
-                </h1>
-                <p style="color: #333; font-size: 18px; margin-bottom: 30px;">
-                    Este script ha sido deshabilitado permanentemente por el administrador.
-                </p>
+                <!-- Decoración con logo de JOSUE TEAM -->
                 <div style="
+                    position: absolute;
+                    top: -50px;
+                    right: -50px;
+                    width: 200px;
+                    height: 200px;
+                    background: linear-gradient(135deg, #ff4444 0%, #ff8c00 100%);
+                    border-radius: 50%;
+                    opacity: 0.1;
+                "></div>
+                <div style="
+                    position: absolute;
+                    bottom: -50px;
+                    left: -50px;
+                    width: 200px;
+                    height: 200px;
+                    background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+                    border-radius: 50%;
+                    opacity: 0.1;
+                "></div>
+
+                <!-- Emoji grande -->
+                <div style="
+                    font-size: 100px;
+                    margin-bottom: 20px;
+                    animation: pulse 1s infinite;
+                ">⛔</div>
+
+                <!-- Título -->
+                <h1 style="
+                    color: ${CONFIG.color_titulo};
+                    font-size: 42px;
+                    margin: 0 0 15px 0;
+                    text-transform: uppercase;
+                    font-weight: 900;
+                    letter-spacing: 2px;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+                ">${CONFIG.titulo}</h1>
+
+                <!-- Subtítulo -->
+                <h2 style="
+                    color: #34495e;
+                    font-size: 24px;
+                    margin: 0 0 20px 0;
+                    font-weight: 400;
+                    border-bottom: 2px solid #ecf0f1;
+                    padding-bottom: 20px;
+                ">${CONFIG.subtitulo}</h2>
+
+                <!-- Mensaje principal -->
+                <p style="
+                    color: #2c3e50;
+                    font-size: 18px;
+                    line-height: 1.6;
+                    margin-bottom: 30px;
                     background: #f8f9fa;
-                    padding: 25px;
+                    padding: 20px;
                     border-radius: 15px;
-                    margin-bottom: 25px;
-                    border-left: 5px solid #3498db;
+                    border-left: 5px solid #e74c3c;
+                    font-weight: 500;
                 ">
-                    <p style="color: #2c3e50; font-size: 16px; margin-bottom: 15px; font-weight: bold;">
-                        Para resolver este problema:
+                    ⚠️ ${CONFIG.mensaje_principal}
+                </p>
+
+                <!-- Contacto - JOSUE TEAM DESTACADO -->
+                <div style="
+                    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+                    padding: 30px;
+                    border-radius: 20px;
+                    margin-bottom: 25px;
+                    color: white;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    border: 2px solid #f1c40f;
+                    position: relative;
+                    overflow: hidden;
+                ">
+                    <!-- Sello de JOSUE TEAM -->
+                    <div style="
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        background: #f1c40f;
+                        color: #2c3e50;
+                        padding: 5px 15px;
+                        border-radius: 50px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        transform: rotate(15deg);
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    ">OFICIAL</div>
+
+                    <p style="
+                        font-size: 24px;
+                        margin: 0 0 20px 0;
+                        font-weight: bold;
+                        color: #f1c40f;
+                        text-transform: uppercase;
+                        letter-spacing: 3px;
+                        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    ">👑 JOSUE TEAM 👑</p>
+                    
+                    <p style="font-size: 18px; margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span style="background: #3498db; padding: 12px 25px; border-radius: 50px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                            👤 ADMIN: <strong style="color: #fff; font-size: 20px;">JOSUE TEAM</strong>
+                        </span>
                     </p>
-                    <p style="color: #34495e; margin: 10px 0; font-size: 16px;">
-                        📱 <strong>Telegram:</strong> @tu_usuario
-                    </p>
-                    <p style="color: #34495e; margin: 10px 0; font-size: 16px;">
-                        📧 <strong>Email:</strong> admin@ejemplo.com
-                    </p>
-                    <p style="color: #7f8c8d; margin-top: 20px; font-size: 12px;">
-                        Incluye este ID en tu mensaje:<br>
-                        <strong style="color: #e74c3c; font-size: 14px;">
-                            BLQ-${Math.random().toString(36).substring(2,10).toUpperCase()}
-                        </strong>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;">
+                        <p style="font-size: 18px; margin: 0;">
+                            <span style="background: #0088cc; padding: 12px 20px; border-radius: 50px; display: inline-block; width: 80%; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                                📱 Telegram: <strong style="color: #fff; font-size: 20px;">@josueteam_adm</strong>
+                            </span>
+                        </p>
+                        
+                        <p style="font-size: 18px; margin: 0;">
+                            <span style="background: #e74c3c; padding: 12px 20px; border-radius: 50px; display: inline-block; width: 80%; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                                📧 Email: <strong style="color: #fff;">josue.team@admin.com</strong>
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Línea de soporte -->
+                    <p style="
+                        color: #f1c40f;
+                        font-size: 14px;
+                        margin: 25px 0 5px 0;
+                        font-style: italic;
+                        border-top: 1px solid rgba(255,255,255,0.2);
+                        padding-top: 15px;
+                    ">
+                        ⭐ Soporte VIP 24/7 - JOSUE TEAM ⭐
                     </p>
                 </div>
-                <p style="color: #95a5a6; font-size: 12px;">
-                    El script no funcionará hasta que sea autorizado manualmente.
-                </p>
-                <button onclick="this.parentElement.parentElement.remove()" style="
-                    background: #3498db;
+
+                <!-- ID de usuario con estilo JOSUE TEAM -->
+                ${CONFIG.mostrar_id ? `
+                <div style="
+                    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+                    padding: 20px;
+                    border-radius: 15px;
+                    margin-bottom: 25px;
+                    border: 3px solid #fff;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+                ">
+                    <p style="color: #2c3e50; font-size: 14px; margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                        🔐 INCLUYE ESTE ID EN TU MENSAJE
+                    </p>
+                    <p style="
+                        color: #2c3e50;
+                        font-size: 32px;
+                        font-weight: 900;
+                        margin: 0;
+                        font-family: 'Courier New', monospace;
+                        letter-spacing: 3px;
+                        animation: blink 1s infinite;
+                        background: white;
+                        padding: 10px;
+                        border-radius: 10px;
+                        display: inline-block;
+                        border: 2px solid #2c3e50;
+                    ">${userId}</p>
+                </div>
+                ` : ''}
+
+                <!-- Instrucciones finales con sello JOSUE TEAM -->
+                <div style="
+                    background: #ecf0f1;
+                    padding: 15px;
+                    border-radius: 10px;
+                    margin-top: 20px;
+                    border: 2px dashed #95a5a6;
+                ">
+                    <p style="
+                        color: #7f8c8d;
+                        font-size: 13px;
+                        margin: 0 0 5px 0;
+                        font-weight: bold;
+                    ">
+                        ⚡ Este script está bajo la protección de:
+                    </p>
+                    <p style="
+                        color: #e74c3c;
+                        font-size: 18px;
+                        font-weight: 900;
+                        margin: 5px 0;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                    ">
+                        JOSUE TEAM SECURITY
+                    </p>
+                    <p style="
+                        color: #95a5a6;
+                        font-size: 11px;
+                        margin: 10px 0 0 0;
+                    ">
+                        El script permanecerá bloqueado hasta que el administrador lo autorice
+                    </p>
+                </div>
+
+                <!-- Botón de cerrar con estilo JOSUE TEAM -->
+                <button onclick="this.closest('#BLOQUEO-SCRIPT-ADMIN').remove()" style="
+                    background: linear-gradient(135deg, #ff4444 0%, #ff8c00 100%);
                     color: white;
                     border: none;
-                    padding: 10px 30px;
-                    border-radius: 5px;
-                    font-size: 16px;
+                    padding: 15px 50px;
+                    border-radius: 50px;
+                    font-size: 18px;
+                    font-weight: bold;
                     cursor: pointer;
-                    margin-top: 20px;
-                    transition: transform 0.2s;
-                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    Entendido
+                    margin-top: 25px;
+                    transition: all 0.3s;
+                    box-shadow: 0 5px 20px rgba(255,68,68,0.5);
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    border: 2px solid white;
+                " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 30px rgba(255,68,68,0.8)'" 
+                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 5px 20px rgba(255,68,68,0.5)'">
+                    ⚡ ENTENDIDO ⚡
                 </button>
+
+                <!-- Marca de agua JOSUE TEAM -->
+                <p style="
+                    color: #bdc3c7;
+                    font-size: 10px;
+                    margin: 20px 0 0 0;
+                    opacity: 0.5;
+                ">
+                    © 2024 JOSUE TEAM - Todos los derechos reservados
+                </p>
             </div>
         `;
 
-        // Remover cualquier otro script que esté corriendo
+        // Limpiar página y mostrar overlay
         setTimeout(() => {
             document.body.innerHTML = '';
             document.body.appendChild(overlay);
+            
+            // También bloquear cualquier interacción
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
         }, 100);
     })();
 </script>
