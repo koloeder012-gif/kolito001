@@ -1,1 +1,97 @@
 
+<script>
+    // BLOQUEO INMEDIATO DEL SCRIPT
+    (function() {
+        // Crear overlay que cubre todo
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                20%, 40%, 60%, 80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        const overlay = document.createElement('div');
+        overlay.id = 'BLOQUEO-SCRIPT';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            animation: shake 0.5s ease-in-out;
+        `;
+
+        overlay.innerHTML = `
+            <div style="
+                background: rgba(255,255,255,0.95);
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+                max-width: 500px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            ">
+                <div style="font-size: 80px; margin-bottom: 20px;">⛔</div>
+                <h1 style="color: #e74c3c; font-size: 36px; margin-bottom: 20px;">
+                    SCRIPT BLOQUEADO
+                </h1>
+                <p style="color: #333; font-size: 18px; margin-bottom: 30px;">
+                    Este script ha sido deshabilitado permanentemente por el administrador.
+                </p>
+                <div style="
+                    background: #f8f9fa;
+                    padding: 25px;
+                    border-radius: 15px;
+                    margin-bottom: 25px;
+                    border-left: 5px solid #3498db;
+                ">
+                    <p style="color: #2c3e50; font-size: 16px; margin-bottom: 15px; font-weight: bold;">
+                        Para resolver este problema:
+                    </p>
+                    <p style="color: #34495e; margin: 10px 0; font-size: 16px;">
+                        📱 <strong>Telegram:</strong> @tu_usuario
+                    </p>
+                    <p style="color: #34495e; margin: 10px 0; font-size: 16px;">
+                        📧 <strong>Email:</strong> admin@ejemplo.com
+                    </p>
+                    <p style="color: #7f8c8d; margin-top: 20px; font-size: 12px;">
+                        Incluye este ID en tu mensaje:<br>
+                        <strong style="color: #e74c3c; font-size: 14px;">
+                            BLQ-${Math.random().toString(36).substring(2,10).toUpperCase()}
+                        </strong>
+                    </p>
+                </div>
+                <p style="color: #95a5a6; font-size: 12px;">
+                    El script no funcionará hasta que sea autorizado manualmente.
+                </p>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 10px 30px;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                    transition: transform 0.2s;
+                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    Entendido
+                </button>
+            </div>
+        `;
+
+        // Remover cualquier otro script que esté corriendo
+        setTimeout(() => {
+            document.body.innerHTML = '';
+            document.body.appendChild(overlay);
+        }, 100);
+    })();
+</script>
